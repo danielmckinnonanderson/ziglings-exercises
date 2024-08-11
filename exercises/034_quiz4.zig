@@ -12,7 +12,10 @@ const NumError = error{IllegalNumber};
 pub fn main() void {
     const stdout = std.io.getStdOut().writer();
 
-    const my_num: u32 = getNumber();
+    const my_num: u32 = getNumber() catch |err| {
+        _ = err;
+        return 42;
+    };
 
     try stdout.print("my_num={}\n", .{my_num});
 }
